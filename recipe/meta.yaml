@@ -1,25 +1,25 @@
 {% set name = "hddm-wfpt" %}
-{% set version = "0.1.4" %}
+{% set version = "0.1.5" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/hddm_wfpt-{{ version }}.tar.gz
-  sha256: b16d318ce47f4691b90e341f29918fd0f7ca0cbce120f794d2e7c8198a40fb6d
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/hddm_wfpt-{{ version }}.tar.gz
+  sha256: 4a83fcafa60f455f7ca41db5cfa9a383d7209fb19610eb5aa69632cc163bad2d
 
 build:
   skip: true  # [py<=39 or py>312 or py2k]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 4
+  number: 0
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - cython                                 # [build_platform != target_platform]
-    - numpy >=1.26.4, <2.0.0                 # [build_platform != target_platform]
+    - numpy >=2.0.0,<3.0.0                  # [build_platform != target_platform]
     - {{ compiler('cxx') }}
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
@@ -28,11 +28,11 @@ requirements:
     - setuptools
     - wheel
     - cython
-    - numpy >=1.26.4, <2.0.0
+    - numpy >=2.0.0,<3.0.0
     - pip
   run:
     - python
-    - numpy >=1.26.4, <2.0.0
+    - numpy >=2.0.0,<3.0.0
     - scipy
 
 test:
